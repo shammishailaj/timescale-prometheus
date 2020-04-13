@@ -429,10 +429,10 @@ LANGUAGE SQL VOLATILE PARALLEL SAFE;
 
 --Returns the jsonb for a series defined by a label_array
 --Note that this function should be optimized for performance
-CREATE OR REPLACE FUNCTION SCHEMA_PROM.label_array_to_jsonb(labels int[])
-RETURNS jsonb AS $$
+CREATE OR REPLACE FUNCTION SCHEMA_PROM.label_array_to_kv(labels int[], OUT keys text[], OUT vals text[])
+AS $$
     SELECT
-        jsonb_object(array_agg(l.key), array_agg(l.value))
+        array_agg(l.key), array_agg(l.value)
     FROM
       SCHEMA_CATALOG.label_unnest(labels) label_id
       INNER JOIN SCHEMA_CATALOG.label l ON (l.id = label_id)
