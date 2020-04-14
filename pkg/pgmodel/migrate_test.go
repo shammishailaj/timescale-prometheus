@@ -35,7 +35,7 @@ var (
 )
 
 const (
-	expectedVersion = 2
+	expectedVersion = 1
 	defaultDB       = "postgres"
 )
 
